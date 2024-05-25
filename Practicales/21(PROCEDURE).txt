@@ -1,0 +1,226 @@
+--------------------------A---------------------
+
+CREATE TABLE Department (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO Department VALUES
+(1,'Admin'),
+(2,'IT'),
+(3,'HR'),
+(4,'Account')
+
+CREATE TABLE Designation (
+    DesignationID INT PRIMARY KEY,
+    DesignationName VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO Designation VALUES
+(11,'Jobber'),
+(12,'Welder'),
+(13,'Clerk'),
+(14,'Manager'),
+(15,'CEO')
+
+CREATE TABLE Person (
+    WorkerID INT IDENTITY(101,1) PRIMARY KEY,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    Salary DECIMAL(8,2) NOT NULL,
+    JoiningDate DATETIME NOT NULL,
+    DepartmentID INT,
+    DesignationID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID),
+    FOREIGN KEY (DesignationID) REFERENCES Designation(DesignationID)
+);
+
+INSERT INTO Person VALUES 
+('Rahul', 'Anshu', 56000, '1990-01-01', 1, 12),
+('Hardik', 'Hinsu', 18000, '1990-09-25', 2, 11),
+('Bhavin', 'Kamani', 25000, '1991-05-14', NULL, 11),
+('Bhoomi', 'Patel', 39000, '2014-02-20', 1, 13),
+('Rohit', 'Rajgor', 17000, '1990-07-23', 2, 15),
+('Priya', 'Mehta', 25000, '1990-10-18', 2, NULL),
+('Neha', 'Trivedi', 18000, '2014-02-20', 3, 15);
+
+-------1------
+------INSERT_sp------
+
+create or alter procedure insert_department
+	@deptid int,
+	@deptname varchar(100) as begin
+
+	insert into Department values (@deptid,@deptname);
+end;
+
+exec insert_department 5,'Management'
+
+create or alter procedure insert_deseignation
+	@desid int,
+	@desname varchar(100) as begin
+
+	insert into Department values (@desid,@desname);
+end;
+
+create or alter procedure insert_person
+	@fn varchar(100),
+	@ln varchar(100),
+	@salary int,
+	@jd datetime,
+	@deptid int,
+	@desid int as begin
+
+	insert into Person values (@fn,@ln,@salary,@jd,@deptid,@desid);
+end;
+
+exec insert_person 'Yagnik','Vora',35000,'11-12-2020',2,13
+
+-------UPDATE_sp------
+
+create or alter procedure update_Department
+    @deptid INT,
+    @deptname VARCHAR(50) as begin
+
+    UPDATE Department set DepartmentName = @deptname where DepartmentID = @deptid;
+end;
+
+create or alter procedure update_designation
+    @desid INT,
+    @desname VARCHAR(50) as begin
+
+    UPDATE Designation set DesignationName = @desname where DesignationID = @desid;
+end;
+
+create or alter procedure update_person
+    @wid int,
+	@fn varchar(100),
+    @ln varchar(50),
+	@salary int,
+	@jd datetime,
+    @deptid int,
+    @desid int as begin 
+
+    update Person set FirstName = @fn, LastName = @ln,Salary = @salary, JoiningDate = @jd, DepartmentID = @deptid, DesignationID = @desid where WorkerID = @wid;
+END;
+
+-------DELETE_sp-------
+
+create or alter procedure delete_department
+    @deptid int as begin
+
+    delete from Department WHERE DepartmentID = @deptid;
+end;
+
+create or alter procedure delete_designation
+    @desid int as begin
+
+    delete from Designation WHERE DesignationID = @desid;
+end;
+
+create or alter procedure delete_person
+    @wid int as begin
+
+    delete from Person WHERE WorkerID = @wid;
+end;
+
+--------2-------
+
+create or alter procedure select_department
+		@deptid int as begin
+
+		select * from Department where DepartmentID = @deptid; 
+end;
+
+create or alter procedure select_designation
+		@desid int as begin
+
+		select * from Designation where DesignationID = @desid; 
+end;
+
+create or alter procedure select_person
+		@wid int as begin
+
+		select * from Person where WorkerID = @wid; 
+end;
+
+------3------
+
+create or alter procedure select_with_foreign_key as begin
+	
+	select p.*,dp.DepartmentName,ds.DesignationName from person p inner join Department dp on p.DepartmentID = dp.DepartmentID inner join Designation ds on p.DesignationID = ds.DesignationID
+end;
+
+-------4-------
+
+create or alter procedure select_top_3_person as begin
+	 select top 3 * from Person
+end;
+
+----------------------------------B----------------------------
+
+-----1-----
+
+create or alter procedure select_department 
+	@dname varchar(100) as begin
+
+	select p.FirstName,d.DepartmentName from person p inner join Department d on p.DepartmentID = d.DepartmentID where d.DepartmentName = @dname
+end;
+
+-----2-----
+create or alter procedure select_department_designation
+	@deptname varchar(100),
+	@desname varchar(100) as begin
+    
+	select p.FirstName,p.Salary,p.JoiningDate,dp.DepartmentName from Person p inner join Department dp on p.DepartmentID = dp.DepartmentID inner join Designation ds on p.DesignationID = ds.DesignationID where dp.DepartmentName = @deptname and ds.DesignationName = @desname;
+end;
+
+-----3-----
+
+create or alter procedure select_firstname
+	@fn varchar(100) as begin
+    
+	select p.*,dp.DepartmentName,ds.DesignationName from Person p left join Department dp on p.DepartmentID = dp.DepartmentID inner join Designation ds on p.DesignationID = ds.DesignationID where p.FirstName = @fn;
+end; 
+
+------4------
+
+create or alter procedure find_salary_dept
+	as begin
+	select d.DepartmentName,max(p.Salary) as maximum,max(p.Salary) as mminimum,sum(p.Salary) as total from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName
+end; 
+
+-----5-----
+
+create or alter procedure find_salary_des
+	as begin
+	select d.DesignationName,avg(p.Salary) as avarage,sum(p.Salary) as total from Person p inner join Designation d on p.DesignationID = d.DesignationID group by d.DesignationName
+end; 
+
+
+----------------------------------C------------------------------
+
+------1-----
+
+create or alter procedure person_count_dept
+	@deptname varchar(100) as begin
+	
+	select d.DepartmentName,COUNT(p.WorkerID) as total_person from Person p inner join Department d on p.DepartmentID = d.DepartmentID where d.DepartmentName = @deptname group by d.DepartmentName 
+end; 
+
+-----2-----
+
+create or alter procedure person_count_dept_des
+	@deptname varchar(100),
+	@desname varchar(100) as begin
+	
+	select p.FirstName,p.LastName,p.Salary,p.JoiningDate,dp.DepartmentName,ds.DesignationName from Person p inner join Department dp on p.DepartmentID = dp.DepartmentID inner join Designation ds on ds.DesignationID = p.DesignationID where dp.DepartmentName = @deptname and ds.DesignationName = @desname
+end;
+
+-----3-----
+
+create or alter procedure person_count_dept
+	as begin
+	
+	select d.DepartmentID,d.DepartmentName,COUNT(p.WorkerID) as total_person from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName,d.DepartmentID
+end;

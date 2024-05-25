@@ -1,0 +1,118 @@
+CREATE TABLE Person (
+    PersonID INT PRIMARY KEY,
+    PersonName VARCHAR(100) NOT NULL,
+    Salary DECIMAL(8,2) NOT NULL,
+    JoiningDate DATETIME NOT NULL,
+    City VARCHAR(100) NOT NULL,
+    Age INT NULL,
+    BirthDate DATETIME NOT NULL
+);
+
+CREATE TABLE PersonLog (
+    PLogID INT PRIMARY KEY IDENTITY(1,1),
+    PersonID INT NOT NULL,
+    PersonName VARCHAR(250) NOT NULL,
+    Operation VARCHAR(50) NOT NULL,
+    UpdateDate DATETIME NOT NULL
+);
+-------------------------------A---------------------------
+
+-----1-----
+
+create or alter trigger insert_person
+on Person after insert,update,delete as begin
+print 'Record is affected'
+end;
+
+-----2-----
+
+create or alter trigger insert_personlog
+on Person for insert,update,delete as begin
+
+	if EXISTS (select * from inserted)
+	begin
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate)
+        select PersonID, PersonName, 'Insert', GETDATE()
+        from inserted;	
+	end
+	else if EXISTS (select * from deleted)
+	begin
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate)
+        select PersonID, PersonName, 'Delete', GETDATE()
+        from inserted;	
+	end
+	else
+	begin
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate)
+        select PersonID, PersonName, 'Update', GETDATE()
+        from inserted;	
+	end
+end;
+
+insert into Person values (101,'yagnik',33000,'11-11-2023','rajkot',19,'11-12-2004')
+
+update Person set salary = 40000 where PersonID = 101
+
+delete from Person where PersonID = 101
+
+select * from PersonLog
+
+----------------------------------B----------------------------------
+
+-----1-----
+
+create or Alter Trigger TR_DML_ins_PersonLog_instead_of on Person
+Instead of insert,update,delete as
+	declare @pid int,@pname Varchar(250)
+	select @pid=PersonID from inserted
+	select @pname=PersonName from inserted
+	if Exists(select * from inserted) And Exists(select * from deleted)
+	begin
+		UPDATE Person set PersonName=i.PersonName,Salary=i.Salary,JoiningDate=i.JoiningDate,Age=i.Age,City=i.City,BirthDate=i.BirthDate from Person p inner join inserted i on p.PersonID=i.PersonID where p.PersonID=@pid;
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate) values(@pid,@pname,'Update',GETDATE())
+	end
+	else if exists(select * from inserted)
+	begin
+		INSERT INTO Person select * from Inserted
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate) values(@pid,@pname,'Insert',GETDATE())
+	end
+	else if exists(select * from deleted)
+	begin
+		select @pid=PersonID from deleted
+		select @pname=PersonName from deleted
+		delete from Person where PersonID =@pid
+		insert into PersonLog (PersonID,PersonName,Operation,UpdateDate) values(@pid,@pname,'Delete',GETDATE())
+	end
+
+insert into Person values (101,'yagnik',33000,'11-11-2023','rajkot',19,'11-12-2004')
+
+update Person set salary = 40000 where PersonID = 101
+
+delete from Person where PersonID = 101
+
+select * from Person
+
+-----2-----
+
+create or alter trigger insert_person_Upper
+on Person for insert as begin
+	update Person set PersonName = UPPER(inserted.PersonName) from Person
+    inner join inserted on Person.PersonID = inserted.PersonID
+end;
+
+
+------------------------------------C-----------------------------
+
+-----1-----
+create or alter trigger insert_person_Age
+on Person for insert as begin
+	update Person set p.Age = DATEDIFF(YEAR, i.BirthDate, GETDATE()) from Person p
+    INNER JOIN inserted i on p.PersonID = i.PersonID
+end;
+
+-----2----
+
+create or alter trigger delete_personlog
+on PersonLog after delete as begin
+	print 'Record deleted successfully from PersonLog'
+end;

@@ -1,0 +1,70 @@
+-----------------------------A----------------------
+
+create view Personal as select * from student
+
+create view Student_Details as select name,branch,spi from Student
+
+create view Academic as select rno,name,branch from Student
+
+create view Student_Data as select * from Student where Bklog > 2
+
+create view Student_Pattern as select rno,name,branch from student where name like '____'
+
+insert into Academic values(107,'Meet','ME')
+
+update Student_Details set branch = 'ME' where name = 'Amit'
+
+delete from Academic where rno = 104
+
+-----------------------------B--------------------------------
+
+CREATE TABLE Student1 
+(
+    Rno	INT primary key,
+    Name VARCHAR(30) not null,
+    Branch VARCHAR(30) not null,
+    SPI Decimal(4,2) not null,
+    Bklog Int not null
+);
+
+INSERT INTO Student1 VALUES
+	('101', 'Raju', 'CE', '8.80', '0'),
+	('102', 'Amit', 'CE', '2.20', '3'),
+	('103', 'Sanjay', 'ME', '1.50', '6'),
+	('104', 'Neha', 'EC', '7.65', '0'),
+	('105', 'Meera', 'EE', '5.52', '2'),
+	('106', 'Mahesh', 'EC','4.50', '3');
+
+create view Personal1 as select * from student
+
+create view Student_Details1 as select name,branch,spi from Student
+
+create view Academic1 as select rno,name,branch from Student
+
+create view Student_Data1 as select * from Student where Bklog > 2
+
+create view Student_Pattern1 as select rno,name,branch from student where name like '____'
+
+--insert into Academic1 values(107,'Meet','ME') it is not possible--
+
+update Student_Details1 set branch = 'ME' where name = 'Amit'
+
+delete from Academic1 where rno = 104
+
+----------------------------------C-------------------------------
+
+delete from Academic1 where rno = 104
+
+create view info as select * from Student1 where spi > 8.5
+
+create view pass as select * from Student1 where bklog = 0
+
+create view computer as select * from Student1 where Branch = 'CE'
+
+create view Result_EC as select name,spi from student1 where spi < 5 and Branch = 'EC'
+
+update Result_EC set spi = 4.90 where name = 'sanjay'
+
+create view Stu_Bklog as select rno,name,bklog from Student1 where name like 'M%' and bklog > 5
+
+drop view computer

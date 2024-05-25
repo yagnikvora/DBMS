@@ -1,0 +1,77 @@
+CREATE TABLE City
+(
+    CityID INT Primary Key,
+    Name VARCHAR(30) Unique,
+    Pincode INT Not Null,
+    Remarks VARCHAR(30)
+);
+
+INSERT INTO City VALUES ('1', 'Rajkot ', '360005', 'Good  ');
+INSERT INTO City VALUES ('2', 'Surat ', '335009', 'Very Good ');
+INSERT INTO City VALUES ('3', 'Baroda ', '390001', 'Awesome ');
+INSERT INTO City VALUES ('4', 'Jamnagar ', '361003', 'Smart ');
+INSERT INTO City VALUES ('5', 'Junagadh ', '362229', 'Historic ');
+INSERT INTO City VALUES ('6', 'Morvi ', '363641', 'Ceramic');
+
+CREATE TABLE Village 
+(
+    VID INT Primary Key,
+    Name VARCHAR(30) Not Null,
+    CityID INT FOREIGN KEY REFERENCES City(CityID),
+);
+
+INSERT INTO Village VALUES ('101', 'Raiya ', '1');
+INSERT INTO Village VALUES ('102', 'Madhapar ', '1');
+INSERT INTO Village VALUES ('103', 'Dodka ', '3');
+INSERT INTO Village VALUES ('104', 'Falla ', '4');
+INSERT INTO Village VALUES ('105', 'Bhesan ', '5');
+INSERT INTO Village VALUES ('106', 'Dhoraji ', '5');
+
+---------------------------A----------------------------
+
+select name from village where CityID = (select CityID from City where name='rajkot')
+
+select v.name, c.pincode from Village v inner join city c on v.CityID = c.CityID
+
+select c.name from city c inner join Village v on c.CityID = v.CityID group by c.name having COUNT(v.vid) > 1
+
+select c.name from city c inner join Village v on c.CityID = v.CityID group by c.name having COUNT(v.vid) = 0
+
+select name from City where CityID not in (select CityID from Village)
+
+select c.name,count(v.CityID) from city c left join Village v on c.CityID = v.CityID group by c.Name
+
+select COUNT(cityid) as NumberOfCities from (select cityid, COUNT(*) as VillageCount from village group by cityid having COUNT(*) > 1
+) as CitiesWithMultipleVillages;
+
+CREATE TABLE Student 
+(
+    Rno	INT primary key,
+    Name VARCHAR(30),
+    Branch VARCHAR(30) default 'General',
+    SPI Decimal(4,2) check (spi<=10.00),
+    Bklog Int check(bklog>=0)
+);
+
+INSERT INTO Student VALUES
+	('101', 'Raju', 'CE', '8.80', '0'),
+	('102', 'Amit', 'CE', '2.20', '3'),
+	('103', 'Sanjay', 'ME', '1.50', '6'),
+	('104', 'Neha', 'EC', '7.65', '0'),
+	('105', 'Meera', 'EE', '5.52', '2'),
+	INSERT INTO Student (Rno,Name,SPI,Bklog) VALUES('106', 'Mahesh', '4.50', '3');
+
+update Student set spi = 12 where name = 'raju'
+
+update Student set Bklog = -1 where name = 'neha'
+
+---------------------------B---------------------------
+create table Emp(Eid varchar(5) primary key , Ename varchar(100), Did INT FOREIGN KEY REFERENCES Dept1(Did) , Cid int FOREIGN KEY REFERENCES City1(cid), Salary int, Experience int)
+create table Dept1(Did int  primary key, Dname varchar(100))
+create table City1(Cid int  primary key, Cname varchar(100))
+
+--------------------------------C-----------------------
+
+create table Emp(Eid varchar(5) primary key , Ename varchar(100), Did INT FOREIGN KEY REFERENCES Dept1(Did) , Cid int FOREIGN KEY REFERENCES City1(cid), Salary int, Experience int)
+create table Dept1(Did int  primary key, Dname varchar(100))
+create table City1(Cid int  primary key, Cname varchar(100))

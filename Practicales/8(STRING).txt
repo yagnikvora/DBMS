@@ -1,0 +1,59 @@
+-----------------------------------A-----------------------------------
+
+select len(null),len('Hello'),len('')
+
+select LOWER('yagnik'),UPPER('yagnik')
+
+select LEFT('yagnik',3)
+
+select SUBSTRING('yagnik',3,10)
+
+select REPLACE('abc123efg','123','XYZ'),REPLACE('abcabcabc','c','5')
+
+select ASCII('a'),ASCII('A'),ASCII('z'),ASCII('Z'),ASCII('0'),ASCII('9')
+
+select CHAR(97),CHAR(65),CHAR(122),CHAR(90),CHAR(48),CHAR(57)
+
+select LTRIM('       Hello world                 ')
+
+select RTRIM('       Hello world                 ')
+
+select CONCAT(LEFT('SQL Server',4),RIGHT('SQL Server',5))
+
+select CAST('1234.56' as decimal(6,2))
+
+select cast(10.58 as int)
+
+select CONCAT(SPACE(10),'yagnik')
+
+select ('yagnik'+'vora'),CONCAT('yagnik','vora')
+
+select REVERSE('Darshan')
+
+select REPLICATE('Yagnik',3)
+
+---------------------------------B--------------------------
+
+select len(FirstName),len(LastName) from Student
+
+select UPPER(FirstName),UPPER(LastName),LOWER(FirstName),LOWER(LastName) from Student
+
+select LEFT(FirstName,3) from Student
+
+select SUBSTRING(Website,3,10) from Student
+
+select CONCAT(LEFT(Website,4),RIGHT(Website,5)) from Student.
+
+--------------------------------------C---------------------------
+
+
+select CONCAT(SPACE(10),FirstName) from Student
+
+select (FirstName+LastName),CONCAT(FirstName,LastName) from student
+
+select (CAST(StuID AS varchar)+FirstName+LastName+Website+City),CONCAT(StuID,FirstName,LastName,Website,City) from student
+
+select REVERSE(FirstName) from Student
+
+select REPLICATE(FirstName,3) from Student
+

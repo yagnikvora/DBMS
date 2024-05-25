@@ -1,0 +1,161 @@
+------------------------A--------------------
+CREATE TABLE Person (
+    WorkerID INT IDENTITY(101,1) PRIMARY KEY,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    Salary DECIMAL(8,2) NOT NULL,
+    JoiningDate DATETIME NOT NULL,
+    DepartmentID INT,
+    DesignationID INT
+);
+
+INSERT INTO Person VALUES 
+('Rahul', 'Anshu', 56000, '1990-01-01', 1, 12),
+('Hardik', 'Hinsu', 18000, '1990-09-25', 2, 11),
+('Bhavin', 'Kamani', 25000, '1991-05-14', NULL, 11),
+('Bhoomi', 'Patel', 39000, '2014-02-20', 1, 13),
+('Rohit', 'Rajgor', 17000, '1990-07-23', 2, 15),
+('Priya', 'Mehta', 25000, '1990-10-18', 2, NULL),
+('Neha', 'Trivedi', 18000, '2014-02-20', 3, 15);
+-----1-----
+create function hello() 
+returns varchar(200) as begin
+	declare @str varchar(200)= 'Hello world'
+	return @str
+end
+select dbo.hello()
+
+-----2-----
+create function add_two_num(@a int,@b int)
+returns int as begin
+	declare @sum int = @a + @b
+	return @sum
+end
+select dbo.add_two_num(10,20)
+
+-----3-----
+create function num_cube(@a int)
+returns int as begin
+	declare @cube int = @a * @a * @a
+	return @cube
+end
+select dbo.num_cube(4)
+
+-----4-----
+create or alter function odd_even(@a int)
+returns varchar(10) as begin
+	declare @val varchar(10)
+	if(@a % 2 = 0)
+		set @val = 'Even'
+	else
+		set @val = 'odd'
+	return @val
+end
+select dbo.odd_even(4)
+
+-----5-----
+create function firstName_B()
+returns table as begin
+	return(select * from person where FirstName like 'B%' )
+end
+select * from dbo.firstName_B()
+
+-----6-----
+create function unique_Fname()
+returns table as begin
+	return(select distinct FirstName from person )
+end
+select * from dbo.unique_Fname()
+
+
+----------------------------B------------------------
+
+-----1-----
+create function compare_firstwithsecond(@n1 int,@n2 int)
+returns varchar(10) as begin
+	declare @ans varchar(10)
+	set @ans = 
+		case 
+			when @n1 > @n2 then 'Large'
+			when @n1 < @n2 then 'Small'
+			else 'Equal'
+		end
+	return @ans
+end
+select dbo.compare_firstwithsecond(20,10)
+
+-----2-----
+create or alter function print_1toN(@n int)
+returns varchar(1000) as begin
+	declare @count int = 1;
+	declare @result varchar(1000) = '';
+
+	while @count <= @n begin
+		set @result = @result + cast(@count as varchar(10)) + ',' 
+		set @count = @count + 1
+	end
+	return left(@result, len(@result) -1)
+end
+
+select dbo.print_1toN(10)
+
+-----3-----
+create or alter function evensum_upto20()
+returns int as begin
+	declare @sum int = 0;
+	declare @i int = 1;
+	while @i <= 20 begin
+		if(@i % 2 = 0)
+			set @sum = @sum +@i
+		set @i = @i + 1
+	end
+	return @sum
+end
+
+select dbo.evensum_upto20()
+
+----------------------------C-----------------------------
+
+-----1-----
+create or alter function chech_prime(@n int)
+returns varchar(20) as begin
+	declare @result varchar(20) = '';
+	declare @i int = 2;
+
+	while @i<@n/2 begin
+		if(@n%@i = 0)
+			set @result = 'Number is Not Prime'
+		else
+			set @result = 'Number is Prime'
+		set @i = @i + 1
+	end
+	return @result
+end
+select dbo.chech_prime(13)
+
+-----2-----
+create or alter function count_days(@start datetime,@end datetime)
+returns int as begin
+	declare @days int;
+	set @days = DATEDIFF(day,@start,@end)
+	return @days
+end
+select dbo.count_days('19-May-2004','11-Dec-2005')
+
+-----3-----
+create or alter function count_days_from_yearsandmonths(@years int,@months int)
+returns int as begin
+	declare @days int;
+	
+	set @days = (@years*365) + (@months*30)
+	return @days
+end
+select dbo.count_days_from_yearsandmonths(8,6)
+
+-----4-----
+create or alter function select_record_id(@id int)
+returns table as
+	return(select * from Person where WorkerID = @id)
+
+select * from dbo.select_record_id(101)
+

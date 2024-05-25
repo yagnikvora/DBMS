@@ -1,0 +1,110 @@
+------------------------A-------------------------------
+
+create table student(rno int,name varchar(30),branch varchar(20))
+
+insert into student values(101,'Raju','CE'),
+(102,'Amit','CE'),
+(103,'Sanjay','ME'),
+(104,'Neha','EC'),
+(105,'Meera','EE'),
+(106,'Mahesh','ME')
+
+create table result (rno int, spi decimal(4,2))
+
+insert into result values(101,8.8),
+(102,9.2),
+(103,7.6),
+(104,8.2),
+(105,7.0),
+(107,8.9)
+
+create table employee(EmployeeNo varchar(5),name varchar(30),ManagerNo varchar(5))
+
+insert into employee values
+('E01','Tarun',NULL),
+('E02','Rohan','E02'),
+('E03','Priya','E01'),
+('E04','Milan','E03'),
+('E05','Jay','E01'),
+('E06','Anjana','E04')
+
+select * from student cross join result
+
+select s.rno,s.name,s.branch,r.spi from student s inner join result r on s.rno = r.rno
+
+select s.rno,s.name,s.branch,r.spi from student s inner join result r on s.rno = r.rno where s.branch = 'CE'
+
+select s.rno,s.name,s.branch,r.spi from student s inner join result r on s.rno = r.rno where s.branch != 'EC'
+
+select s.branch,avg(r.spi) from student s inner join result r on s.rno = r.rno group by s.branch
+
+select s.branch,avg(r.spi) from student s inner join result r on s.rno = r.rno group by s.branch order by avg(r.spi)
+
+select s.branch,avg(r.spi) from student s inner join result r on s.rno = r.rno where s.branch ='CE' or s.branch='ME' group by s.branch
+
+select * from student s left join result r on s.rno = r.rno
+
+select * from student s full join result r on s.rno = r.rno
+
+select e.Name,m.Name from employee e inner join employee m on e.ManagerNo = m.EmployeeNo
+
+------------------------------------B-----------------------------
+CREATE TABLE Person ( PersonID INT,PersonName VARCHAR(30),DepartmentID INT,Salary INT,JoiningDate date,City VARCHAR(30));
+INSERT INTO Person VALUES ('101', 'Rahul Tripathi', '2', '56000', '01-JAN-2000', 'Rajkot');
+INSERT INTO Person VALUES ('102', 'Hardik Pandya', '3', '18000', '25-SEP-2001', 'Ahmedabad');
+INSERT INTO Person VALUES ('103', 'Bhavin Kanani', '4', '25000', '14-MAY-2000', 'Baroda');
+INSERT INTO Person VALUES ('104', 'Bhoomi Vaishnav', '1', '39000', '08-FEB-2005', 'Rajkot');
+INSERT INTO Person VALUES ('105', 'Rohit Topiya', '2', '17000', '23-JUL-2001', 'Jamnagar');
+INSERT INTO Person VALUES ('106', 'Priya Menpara', NULL, '9000', '18-OCT-2000', 'Ahmedabad');
+INSERT INTO Person VALUES ('107', 'Neha Sharma', '2', '34000', '25-DEC-2002', 'Rajkot');
+INSERT INTO Person VALUES ('108', 'Nayan Goswami', '3', '25000', '01-JUL-2001', 'Rajkot');
+INSERT INTO Person VALUES ('109', 'Mehul Bhundiya', '4', '13500', '09-JAN-2005', 'Baroda');
+INSERT INTO Person VALUES ('110', 'Mohit Maru', '5', '14000', '25-MAY-2000', 'Jamnagar');
+
+
+CREATE TABLE Department (DepartmentID INT, DepartmentName VARCHAR(30), DepartmentCode VARCHAR(30),Location VARCHAR(30));
+
+INSERT INTO Department VALUES ('1', 'Admin', 'Adm', 'A-Block');
+INSERT INTO Department VALUES ('2', 'Computer', 'CE', 'C-Block');
+INSERT INTO Department VALUES ('3', 'Civil', 'CI', 'G-Block');
+INSERT INTO Department VALUES ('4', 'Electrical', 'EE', 'E-Block');
+INSERT INTO Department VALUES ('5', 'Mechanical', 'ME', 'B-Block'); 
+
+select p.PersonName, d.DepartmentName, d.DepartmentCode from Person p inner join Department d on p.DepartmentID = d.DepartmentID
+
+select d.DepartmentName , max(p.Salary), min(p.Salary) from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName
+
+select d.DepartmentName,sum(p.Salary) from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName having sum(p.Salary) > 100000
+
+select p.PersonName, p.Salary, d.DepartmentName from Person p inner join Department d on p.DepartmentID = d.DepartmentID where city='Jamnagar'
+
+select distinct p.* from Person p inner join Department d on p.DepartmentID is null
+
+select d.DepartmentName, COUNT(p.PersonID) from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName
+
+select avg(salary) from Person where City = 'Ahmedabad'
+
+select concat (p.PersonName,' earns ',p.Salary,' from Department ',d.DepartmentName,' monthly') as 'person details' from Person p inner join Department d on p.DepartmentID = d.DepartmentID
+
+select d.DepartmentName from Department d left join Person p on d.DepartmentID = p.DepartmentID where p.DepartmentID IS NULL;
+
+select p.City, d.DepartmentName, 
+SUM(p.Salary) AS TotalSalary, 
+AVG(p.Salary) AS AverageSalary, 
+MAX(p.Salary) AS MaxSalary 
+from Person p join Department d ON p.DepartmentID = d.DepartmentID 
+group by p.City, d.DepartmentName;
+
+
+----------------------------C----------------------------
+
+
+select distinct city from Person
+
+select d.DepartmentName, count(p.PersonID) from Person p inner join Department d on p.DepartmentID = d.DepartmentID group by DepartmentName having count(d.DepartmentID) > 2
+
+select LEFT(PersonName,3)+RIGHT(city,3) from Person
+
+update Person set Salary = Salary * 1.10 from person p inner join Department d on p.DepartmentID = d.DepartmentID where DepartmentName = 'computer'
+
+select PersonName from Person where DATEDIFF(day,JoiningDate,GETDATE()) > 365 

@@ -1,0 +1,58 @@
+CREATE TABLE Employee (
+    EID	INT,
+    EName	VARCHAR(100),
+    Gender	VARCHAR(10),
+    JoiningDate	Datetime,
+    Salary	Decimal(8,2),
+    City	VARCHAR(100)
+);
+INSERT INTO Employee VALUES
+	('1', 'Nick', 'Male', '01-01-13', '4000', 'London'),
+	('2', 'Julian', 'Female', '01-10-14', '3000', 'New York'),
+	('3', 'Roy', 'Male', '01-06-16', '3500', 'London'),
+	('4', 'Tom', 'Male', NULL, '4500', 'London'),
+	('5', 'Jerry', 'Male', '01-02-13', '2800', 'Sydney'),
+	('6', 'Philip', 'Male', '01-01-15', '7000', 'New York'),
+	('7', 'Sara', 'Female', '01-08-17', '4800', 'Sydney'),
+	('8', 'Emily', 'Female', '01-01-15', '5500', 'New York'),
+	('9', 'Michael', 'Male', NULL, '6500', 'London'),
+	('10', 'John', 'Male', '01-01-15', '8800', 'London');
+
+---------------------------A-----------------------------
+select Ename from Employee where EName like 'm__h%'
+
+select POWER(3,5) as output
+
+select DATEADD(day,-20,getdate())
+
+select Ename from Employee where EName like 'j%n%'
+
+select SUBSTRING('SQL Programming',2,8)
+
+--------------------------B-----------------------
+
+select * from Employee where city like '___ney'
+
+select CONVERT(varchar,15)
+
+alter table employee add department varchar(20)
+
+update Employee set department = 'Marketing' where City='London'
+
+select * from Employee where EName like '%[n y]'
+
+-----------------------C----------------------
+
+select CEILING(63.1),CEILING(63.8),CEILING(-63.2) 
+
+select * from Employee where JoiningDate is null
+
+select UPPER(Ename),LOWER(city) from Employee
+
+alter table employee alter column EName char(30)
+
+select city,max(salary) from Employee group by city
+
+
+
+

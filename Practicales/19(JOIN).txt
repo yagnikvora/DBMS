@@ -1,0 +1,69 @@
+------------------------------A-----------------------------
+
+create table Department (
+DepartmentID int primary key,
+DepartmentName varchar(100) not null unique,
+DepartmentCode varchar(50) not null unique,
+Location varchar(50) not null)
+
+insert into Department values
+(1,'Admin','Adm','A-Block'),
+(2,'Computer','CE','C-Block'),
+(3,'Civil','CI','G-Block'),
+(4,'Electrical','EE','E-Block'),
+(5,'Mechanical','ME','B-Block')
+
+create table person (
+PersonID int primary key,
+PersoName varchar(100) not null,
+DepartmentID int  FOREIGN KEY REFERENCES Department(DepartmentID),
+salary decimal(8,2) not null,
+JoiningDate datetime not null,
+city varchar(100) not null)
+
+insert into person values
+(101,'Rahul Tripathi',2,56000,'01-jan-2000','Rajkot'),
+(102,'Hardik Pandya',3,18000,'25-sep-2001','Ahmedabad'),
+(103,'Bhavin Kanani',4,25000,'14-may-2000','Baroda'),
+(104,'Bhoomi Vaishnav',1,39000,'08-feb-2005','Rajkot'),
+(105,'Rohit Topiya',2,17000,'23-jul-2001','Jamnagar'),
+(106,'Priya Menpara',NULL,9000,'18-oct-2000','Ahmedabad'),
+(107,'Neha Sharma',2,34000,'25-dec-2002','Rajkot'),
+(108,'Nayan Goswami',3,25000,'01-jul-2001','Rajkot'),
+(109,'Mehul Bhundiya',4,13500,'09-jan-2005','Baroda'),
+(110,'Mohit Maru',5,14000,'25-may-2000','Jamnagar')
+
+
+select p.PersoName,d.DepartmentName,d.DepartmentCode from person p inner join Department d on p.DepartmentID = d.DepartmentID
+
+select d.DepartmentName, max(p.salary),min(p.salary) from  person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName
+
+select d.DepartmentName,sum(p.salary) from person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName having sum(p.salary) > 100000
+
+select p.PersoName,p.salary,d.DepartmentName from person p inner join Department d on p.DepartmentID = d.DepartmentID where p.city = 'jamnagar'
+
+select * from person where DepartmentID is null
+
+-------------------------------B--------------------------
+
+select d.DepartmentName,count(*) from person p inner join Department d on p.DepartmentID = d.DepartmentID group by d.DepartmentName
+
+select avg(salary) from person where city = 'Ahmedabad'
+
+select CONCAT(p.PersoName,' earns ',p.salary,' from department ',d.DepartmentName,' monthly ') from person p inner join Department d on p.DepartmentID = d.DepartmentID
+
+select d.DepartmentID, d.DepartmentName from department d left join person p on p.DepartmentID = d.DepartmentID where p.PersonID IS NULL;
+
+select p.city,d.DepartmentName,sum(p.salary) as total,min(p.salary) as minimum,max(p.salary) as maximum from person p inner join Department d on p.DepartmentID = d.DepartmentID group by p.city , d.DepartmentName
+
+--------------------------------C----------------------------------
+
+select distinct city from person
+
+select d.DepartmentName from Department d inner join person p on d.DepartmentID = p.DepartmentID group by d.DepartmentName having COUNT(p.PersonID) > 2
+
+select CONCAT(LEFT(PersoName,3),RIGHT(city,3)) from person
+
+update person set salary = salary * 1.10 where DepartmentID = (select DepartmentID from Department where DepartmentName = 'computer')
+
+select PersoName from person where DATEDIFF(DAY,GETDATE(), JoiningDate) > 365;

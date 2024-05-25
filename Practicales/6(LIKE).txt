@@ -1,0 +1,60 @@
+------------------------------------A----------------------------
+
+
+create table Student 
+(StuID INT,
+FirstName VARCHAR(25),
+LastName VARCHAR(25),
+Website VARCHAR(50),
+City VARCHAR(25))
+
+
+insert into Student values
+(1011,'Keyur','Patel','techonthenet.com','Rajkot'),
+(1022,'Hardik','Shah','digminecraft.com','Ahmedabad'),
+(1033,'Kajal','Trivedi','bigactivities.com','Baroda'),
+(1044,'Bhoomi','Gajera','checkyourmath.com','Ahmedabad'),
+(1055,'Harmit','Mitel',NULL,'Rajkot'),
+(1066,'Ashok','Jani',NULL,'Baroda')
+
+
+select FirstName from Student where FirstName like 'k%'
+
+select FirstName from Student where FirstName like '_____'
+
+select FirstName, LastName from Student where City like '_____a'
+
+select * from Student where LastName like '%tel'
+
+select * from Student where FirstName like 'ha%t'
+
+select * from Student where FirstName like 'k_y%'
+
+
+----------------------------------------B------------------------------------------
+
+select FirstName from Student where Website is Null and FirstName like '_____'
+
+select * from Student where LastName like '%jer%'
+
+select * from Student where City like 'r%' or city like 'b%'
+
+select * from Student where Website is not null
+
+select * from Student where FirstName between 'A' and 'H'
+
+select * from Student where FirstName like '_[A-E-I-O-U]%'
+
+
+-------------------------------------------C-------------------------------------
+
+
+select * from Student where Website is null and FirstName like '_____%'
+
+select * from Student where LastName like 'pat%'
+
+select * from Student where city not like 'b%'
+
+select * from Student where FirstName like 'A%' or FirstName like 'H%'
+
+select * from Student where FirstName like 'H[a-e-i-o-u]%'

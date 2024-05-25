@@ -1,0 +1,64 @@
+--------------------------------------A--------------------------------
+
+create table Employee
+(EID int,
+EName varchar(20),
+Department varchar(20),
+salary int,
+JoiningDate date,
+City varchar(20))
+
+insert into Employee values
+(101,'Rahul','Admin',56000,'1-Jan-90','Rajkot'),
+(102,'Hardik','IT',18000,'25-Sep-90','Ahmedabad'),
+(103,'Bhavin','HR',25000,'14-May-91','Baroda'),
+(104,'Bhoomi','Admin',39000,'8-Feb-91','Rajkot'),
+(105,'Rohit','IT',17000,'23-Jul-90','Jamnagar'),
+(106,'Priya','IT',9000,'18-Oct-90','Ahmedabad'),
+(107,'Neha','HR',34000,'25-Dec-91','Rajkot')
+
+select MAX(salary) as Maximum,MIN(salary) as Minimum,SUM(salary) as Total_Sal,AVG(salary) as Average_Sal from Employee
+
+select count(*) from Employee
+
+select MAX(salary) from Employee where Department = 'IT'
+
+select COUNT(distinct city) from Employee
+
+select city, COUNT(*) from Employee group by City
+
+select city from Employee group by city having COUNT(eid) > 1
+
+select department,sum(salary) from Employee group by department
+
+select avg(salary) from Employee group by department
+
+select min(salary) from Employee where City = 'Ahmedabad'
+
+select department from Employee where city='Rajkot' group by Department having sum(Salary) > 50000
+
+------------------------------B----------------------------
+
+select * from Employee
+select COUNT(eid) from Employee where city='rajkot'
+
+select MAX(salary) - MIN(salary) as 'DIFFERENCE' from Employee
+
+select COUNT(eid) from Employee where JoiningDate < '1-JAN-1991'
+
+select Department,sum(salary) as 'Total Salary' from Employee group by Department having sum(salary) > 35000 order by sum(salary)
+
+select Department,COUNT(eid) from Employee group by Department having COUNT(eid) > 2
+
+-------------------------------C------------------------------
+
+select COUNT(eid) from Employee where city='rajkot' or city='baroda'
+
+select MAX(salary) - MIN(salary) as 'DIFFERENCE' from Employee
+
+select COUNT(eid) from Employee where JoiningDate < '1-JAN-1991' and Department='it'
+
+select Department,sum(salary) as 'Total Salary' from Employee group by Department having sum(salary) > 35000 order by sum(salary) desc
+
+
+

@@ -1,0 +1,57 @@
+----------------------------A------------------------------
+
+create table Cricket (Name varchar(30),City varchar(10),age int)
+
+insert into Cricket values('Sachin Tendulkar','Mumbai',30),
+('Rahul Dravid','Bombay',35),
+('M. S. Dhoni','Jharkhand',31),
+('Suresh Raina','Gujarat',30)
+
+select * into Worldcup from Cricket
+
+select Name,City into T20 from Cricket where 1=2
+
+select * into IPL from Cricket where 1=2
+
+insert into IPL select * from Cricket where Name like '_A_____%'
+
+delete from IPL
+
+delete from Worldcup where City = 'Jharkhand'
+
+sp_rename 'IPL','IPL2018'
+
+drop table T20
+
+---------------------------------B------------------------------------
+
+create table Employee (Name varchar(30),City varchar(10),age int)
+
+insert into Employee values('Jay Patel','Rajkot',30),
+('Rahul Dave','Baroda',35),
+('Jeet Patel','Surat',31),
+('Vijay Raval','GRajkot',30)
+
+
+select * into Employee_detail from Employee
+
+select Name,City into Employee_data from Employee where 1=2
+
+select * into Employee_info from Employee where 1=2
+
+insert into Employee_info select * from Employee where Name like '_A_____%'
+
+insert into Employee_info select * from Employee where age > 32
+
+
+---------------------------------C--------------------------------
+
+delete from Employee_info
+
+delete from Employee where city = 'Rajkot'
+
+sp_rename 'Employee','New_Employee'
+
+delete from New_Employee
+
+drop table New_Employee

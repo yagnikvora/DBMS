@@ -1,0 +1,36 @@
+-----------------------------A--------------------------
+
+select concat(trim(Ename),' works at ',city,' and earns ',salary) from Employee
+
+select count(eid) from Employee where salary>5000
+
+select LEFT(EName,4) as 'first' , RIGHT(trim(Ename),3) as 'last' from Employee
+
+select city,SUM(salary) from Employee where  JoiningDate > '01-jan-2014' group by city having sum(salary) > 15000
+
+select REPLACE(Ename,'u','oo') from Employee
+
+-------------------------B--------------------------------
+
+select city,avg(salary),count(eid) from Employee group by City
+
+select sum(salary) from Employee where Gender = 'Female'
+
+select DATEDIFF(year,joiningdate,getdate()) from Employee
+
+alter table employee drop column department
+
+update Employee set city=null where city = 'sydney'
+
+------------------------C-------------------------
+
+select ename,salary,joiningdate from Employee
+
+select LEN(concat(trim(ename),gender)) from employee , select len(ename)+len(gender) from Employee
+
+select MAX(salary) - MIN(salary) from Employee
+
+sp_rename 'employee.ename','FirstName', 'column'
+
+sp_rename 'employee','EmpMaster'
+

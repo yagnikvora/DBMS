@@ -1,0 +1,65 @@
+---------------------A---------------------
+
+create table Student 
+(StuID Int,
+Name Varchar(100),
+EnrollmentNo Varchar(12),
+Division Varchar(50),
+Sem Int,
+BirthDate date,
+Email Varchar(100),
+ContactNo Varchar(50))
+
+insert into Student values
+(101,'Naimish Patel',090200107051,'BCX-3',3,'1992-12-06','naimishp49@gmail.com',8866205253),
+(102,'Firoz A. S.',090200107090,'BCY-3',3,'1994-05-03','Firoz.me@gmail.com',8885999922),
+(103,'Krunal Vyas',090243107101,'BCZ-5',5,'1984-03-01','Krunal.vyas@gmail.com',9990888877),
+(104,'Vijay Patel',090200107102,'BCX-5',5,'1985-02-15','Vijay.patel123@gmail.com',8787878787),
+(105,'Vimal Trivedi',090200107103,'BCY-3',3,'1988-01-20','Maulik123@gmail.com',8789564512)
+
+select name from Student where sem = 3 or sem = 5
+
+select name,EnrollmentNo from Student where StuID between 103 and 105
+
+select name,EnrollmentNo,Email from Student where sem = 5
+
+select top 3 * from Student
+
+select top 30 percent name,EnrollmentNo from Student where ContactNo like '%7'
+
+select distinct sem from Student
+
+select * from Student where EnrollmentNo is null
+
+select * from Student where Name not like 'v%'
+
+select * from Student where Email like '___3@G%'
+
+select * from Student where name like 'f_r%'
+
+
+-----------------------------B---------------------
+
+
+select * from Student where ContactNo like '%877%'
+
+select * from Student where Sem = 3 and ContactNo not like '%[8-9]%'
+
+select * from Student where BirthDate > '01-01-1990'
+
+update Student set Division = 'BCX-5',Sem = 5 where StuID = 102
+
+update Student set Name = 'Firoz Sherasiya' where Email = 'Firoz.me@gmail.com' and ContactNo = 8885999922
+
+
+--------------------C---------------------------
+
+alter table student add City Varchar (50)
+
+delete from student where Division = 'BCX-3'
+
+sp_rename 'student.Email', 'EmailAddress'
+
+truncate table student
+
+select * into Student_New from Student

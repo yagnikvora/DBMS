@@ -1,0 +1,62 @@
+----------------------------------A---------------------------------
+
+
+create table Computer (eid int,Name varchar(20))
+
+create table Electrical (cid int,Name varchar(20))
+
+insert into Computer values(1,'Ajay'),(9,'Haresh'),(5,'Manish')
+
+insert into Electrical values(5,'Ajay'),(7,'Mahesh'),(5,'Manish')
+
+
+select name from Computer union select name from Electrical
+
+select name from Computer union all select name from Electrical
+
+select name from Computer intersect select name from Electrical
+
+select name from Computer except select name from Electrical
+
+select name from Electrical except select name from Computer
+
+--------------------------------------B--------------------------------
+
+create table Employee (eid int,Name varchar(20))
+
+create table Customer (cid int,Name varchar(20))
+
+insert into Employee values(1,'Ajay'),(9,'Haresh'),(5,'Manish')
+
+insert into Customer values(5,'Ajay'),(7,'Mahesh'),(5,'Manish')
+
+
+select name from employee union select name from Customer
+
+select name from employee union all select name from Customer
+
+select name from employee intersect select name from Customer
+
+select name from employee except select name from Customer
+
+select name from Customer except select name from employee
+
+---------------------------------C--------------------------------------
+
+
+select * from employee union select * from Customer
+
+select * from employee union all select * from Customer
+
+select * from employee intersect select * from Customer
+
+select * from employee except select * from Customer
+
+select * from Customer except select * from employee
+
+
+
+
+
+
+

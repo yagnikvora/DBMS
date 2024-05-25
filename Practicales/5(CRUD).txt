@@ -1,0 +1,41 @@
+--------------------------------------A-----------------------------
+
+create table student
+(Enrollment_No VARCHAR(20),
+Name VARCHAR(25),
+CPI DECIMAL(5,2),
+Birthdate DATETIME)
+
+Alter table student add  City VARCHAR(20),Backlog INT
+Alter table student alter column Name varchar(35)
+Alter table student alter column Enrollment_No INT
+exec sp_rename 'student.Enrollment_No','ENO','Column 
+alter table student drop column city
+exec sp_rename 'STUDENT','STUDENT_MASTER'
+drop table STUDENT_MASTER
+
+
+-----------------------------------B-----------------------------
+
+
+create table depoit 
+(ACTNO INT,
+CNAME VARCHAR(50),
+BNAME VARCHAR(50),
+AMOUNT DECIMAL(8,2),
+ADATE DATETIME)
+
+alter table deposit add City VARCHAR(20),Pincode INT
+alter table deposit alter column cname VARCHAR(35)
+alter table deposit alter column amount int
+EXEC sp_rename 'deposit.actno','ANO','column'
+alter table deposit drop column city
+
+
+--------------------------------------C--------------------------------
+
+
+alter table deposit drop column adate
+EXEC sp_rename 'deposit.cname','CustomerName','Column'
+EXEC sp_rename 'DEPOSIT','DEPOSIT_DETAIL'
+drop table DEPOSIT_DETAIL

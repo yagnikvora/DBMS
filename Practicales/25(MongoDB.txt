@@ -1,0 +1,133 @@
+db.deposits.insertMany([
+    {
+        ACTNO: 101,
+        CNAME: "ANIL",
+        BNAME: "VRCE",
+        AMOUNT: 1000.00,
+        ADATE: "1-3-95"
+    },
+    {
+        ACTNO: 102,
+        CNAME: "SUNIL",
+        BNAME: "AJNI",
+        AMOUNT: 5000.00,
+        ADATE: "4-1-96"
+    },
+    {
+        ACTNO: 103,
+        CNAME: "MEHUL",
+        BNAME: "KAROLBAGH",
+        AMOUNT: 3500.00,
+        ADATE: "17-11-95"
+    },
+    {
+        ACTNO: 104,
+        CNAME: "MADHURI",
+        BNAME: "CHANDI",
+        AMOUNT: 1200.00,
+        ADATE: "17-12-95"
+    },
+    {
+        ACTNO: 105,
+        CNAME: "PRMOD",
+        BNAME: "M.G. ROAD",
+        AMOUNT: 3000.00,
+        ADATE: "27-3-96"
+    },
+    {
+        ACTNO: 106,
+        CNAME: "SANDIP",
+        BNAME: "ANDHERI",
+        AMOUNT: 2000.00,
+        ADATE: "31-3-96"
+    },
+    {
+        ACTNO: 107,
+        CNAME: "SHIVANI",
+        BNAME: "VIRAR",
+        AMOUNT: 1000.00,
+        ADATE: "5-9-95"
+    },
+    {
+        ACTNO: 108,
+        CNAME: "KRANTI",
+        BNAME: "NEHRU PLACE",
+        AMOUNT: 5000.00,
+        ADATE: "2-7-95"
+    }
+]);
+
+
+----------------------------A-------------------------
+
+db.deposits.find();
+
+db.deposits.find().pretty();
+
+db.deposits.findOne();
+
+db.deposits.insertOne(
+    {
+        ACTNO: 109,
+        CNAME: "KRITI",
+        BNAME: "VIRAR",
+        AMOUNT: 3000.00,
+        ADATE: "3-5-97"
+    })
+
+db.deposits.insertMany([
+    {
+        ACTNO: 110,
+        CNAME: "MITALI",
+        BNAME: "ANDHERI",
+        AMOUNT: 4500.00,
+        ADATE: "4-9-95"
+    },
+    {
+        ACTNO: 111,
+        CNAME: "RAJIV",
+        BNAME: "NEHRU PALACE",
+        AMOUNT: 7000.00,
+        ADATE: "2-10-98"
+    }])
+
+db.deposits.find({},{CNAME: 1, BNAME: 1, AMOUNT: 1})
+
+db.deposits.find().sort({ "CNAME": 1 });
+
+db.deposits.find().sort({"BNAME" : -1});
+
+db.deposits.find().sort({"ACTNO" : 1,"AMOUNT" : -1});
+
+db.deposits.find().limit(2);
+
+db.deposits.find().skip(2).limit(1);
+
+db.deposits.find().skip(5).limit(2);
+
+db.deposits.find().count();
+
+-----------------------B------------------------
+
+db.deposits.insertOne(
+    {
+        ACTNO: 112,
+        CNAME: "MANISH",
+        BNAME: "ANDHERI",
+        AMOUNT: 8000.00,
+        ADATE: "9-5-98"
+    })
+
+db.deposits.find().skip(8).limit(1);
+
+db.deposits.find().skip(10).limit(2);
+
+-------------------------C-----------------------
+
+db.deposits.find().sort({"AMOUNT" : 1,"BNAME" : -1});
+
+db.deposits.find().limit(5);
+
+db.deposits.drop();
+
+db.dropDatabase();

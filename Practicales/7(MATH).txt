@@ -1,0 +1,47 @@
+------------------------------------------A---------------------------------
+
+select 5*30 
+select abs(-25),abs(25),abs(-50),abs(50)
+select FLOOR(25.2), FLOOR(25.7), FLOOR(-25.2)
+select CEILING(25.2), CEILING(25.7), CEILING(-25.2)
+select 5%2 , 5%3
+select POWER(3,2) , POWER(4,3)
+select SQRT(25), SQRT(30), SQRT(50)
+select SQUARE(5), SQUARE(15), SQUARE(25)
+select PI() 
+select ROUND(157.732,2), ROUND(157.732,0), ROUND(157.732,-2)
+select EXP(2), EXP(3)
+select LOG(10), LOG(2)
+select LOG10(5), LOG10(100)
+select SIN(3.1415), COS(3.1415), TAN(3.1415)
+select SIN(-25), SIN(0), SIN(25)
+select RAND()
+
+
+----------------------------B------------------------------
+
+
+select *,salary+comission as total  from employee
+
+select CEILING(55.2) ,CEILING(35.7),CEILING(-55.2) 
+
+select FLOOR(55.2),FLOOR(35.7),FLOOR(-55.2) 
+
+select 55%2,55%3
+
+select POWER(23,2),POWER(14,3)
+
+
+------------------------------------C--------------------------------
+
+select SQRT(36),SQRT(49),SQRT(41)
+
+select SQUARE(3),SQUARE(9),SQUARE(12)
+
+select ROUND(280.8952,2),ROUND(280.8952,0),ROUND(280.8952,-2)
+
+select SIN(4.2014),COS(4.2014),TAN(4.2014)
+
+select SIGN(-55),SIGN(0),SIGN(95)
+
+

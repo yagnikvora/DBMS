@@ -1,0 +1,33 @@
+------------------------------A---------------------------------
+
+create table Department2(DID int, DName varchar(30))
+
+insert into Department2 values
+(10,'Computer'),
+(20,'Electrical'),
+(30,'Mechanical'),
+(40,'Civil')
+
+select * from student where did = (select did from Department2 where DName = 'computer')
+
+select * from student where rno in (select rno from result where spi > 8)
+
+select count(rno) from student where did = (select did from Department2 where DName = 'Electrical')
+
+-----------------------------B--------------------------
+
+select name from student where rno = (select top 1 rno from result order by spi desc)
+
+select * from student where rno in (select rno from result where bklog > 1)
+
+select name from student where rno = (select rno from result where spi = (select max(spi) from result where spi < (select max(spi) from result)))
+
+--------------------------------C-----------------------------
+
+select name from student where did in (select did from Department2 where DName = 'computer' or DName = 'mechanical')
+
+select s1.name from student s1 where s1.did = (select s2.did from student s2 where s2.rno = 102)
+
+select name from student where rno in (select rno from result where spi > 9) or did = (select did from Department2 where DName = 'electical')
+
+

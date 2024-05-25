@@ -1,0 +1,67 @@
+--------------A----------------
+
+SELECT GETDATE() as Today_Date
+
+SELECT DATEADD(DAY,365,GETDATE()) 
+
+SELECT FORMAT(GETDATE(), 'MMM d yyyy hh:mmtt')
+
+SELECT FORMAT(GETDATE(), 'dd MMM yyyy')
+
+SELECT FORMAT(GETDATE(), 'MMM dd, yy')
+
+SELECT DATEDIFF(Day,'31-Dec-08','31-Mar-09')
+
+SELECT DATEDIFF(YEAR,'25-Jan-12','14-Sep-10')
+
+SELECT DATEDIFF_BIG(HOUR,'25-Jan-12 7:00','26-Jan-12 10:30')
+
+SELECT  DATEPART(DAY,'12-MAY-16') AS DAYS,DATEPART(MONTH,'12-MAY-16') AS MONTHS,DATEPART(YEAR,'12-MAY-16') AS YEARS
+
+SELECT DATEADD(YEAR,5,GETDATE())
+
+SELECT DATEADD(MONTH,-2,GETDATE())
+
+SELECT DATENAME(MONTH,GETDATE()) AS DATENAME,DATEPART(MONTH,GETDATE()) AS DATEPART
+
+SELECT EOMONTH(GETDATE())
+
+SELECT DATEDIFF(YEAR,'11-DEC-2004',GETDATE())-1 AS YEARS,DATEDIFF(MONTH,'11-DEC-2004',GETDATE())%12 AS MONTHS
+
+
+-------------------B-----------------
+
+CREATE TABLE Emp_detail (EmpNo int,EmpName varchar(20),JoiningDate date,Salary int,City varchar(20));
+
+INSERT INTO Emp_detail VALUES(101,'Keyur','15-JAN-2002',12000,'Rajkot'),
+(102,'Hardik','15-FEB-2004',14000,'Ahmedabad'),
+(103,'Kajal','14-MAR-2006',15000,'Baroda'),
+(104,'Bhoomi','23-JUN-2005',12500,'Ahmedabad'),
+(102,'Harmit','15-FEB-2004',14000,'Rajkot'),
+(105,'Jay','12-MAR-2007',12000,'Surat')
+
+SELECT DATEADD(DAY,365,JoiningDate) from Emp_detail
+
+SELECT FORMAT(JoiningDate,'MMM d yyyy hh:mm') from Emp_detail
+
+SELECT FORMAT(JoiningDate,'dd MMM yyyy') from Emp_detail
+
+SELECT FORMAT(JoiningDate,'MMM dd, yy') from Emp_detail
+
+SELECT DATEDIFF(MONTH,JoiningDate,'31-Mar-09') from Emp_detail
+
+SELECT DATEDIFF(YEAR,JoiningDate,'14-Sep-10') from Emp_detail
+
+
+--------------------------C------------------------
+
+SELECT DATEPART(DAY,JoiningDate) AS DAYS,DATEPART(MONTH,JoiningDate) AS MONTHS,DATEPART(YEAR,JoiningDate) AS YEARS FROM Emp_detail
+
+SELECT DATEADD(YEAR,5,JoiningDate) FROM Emp_detail
+
+SELECT DATEADD(MONTH,-2,JoiningDate) FROM Emp_detail
+
+SELECT DATENAME(MONTH,JoiningDate) AS DATENAME,DATEPART(MONTH,JoiningDate) AS DATEPART FROM Emp_detail
+
+SELECT DATEDIFF(YEAR,'11-DEC-2004',GETDATE())-1 AS YEARS,DATEDIFF(MONTH,'11-DEC-2004',GETDATE())%12 AS MONTHS
+

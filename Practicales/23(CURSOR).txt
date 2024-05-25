@@ -1,0 +1,89 @@
+CREATE TABLE Products (
+    Product_id INT PRIMARY KEY,
+    Product_Name VARCHAR(250) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO Products (Product_id, Product_Name, Price)
+VALUES (1, 'Smartphone', 35000),
+       (2, 'Laptop', 65000),
+       (3, 'Headphones', 5500),
+       (4, 'Television', 85000),
+       (5, 'Gaming Console', 32000);
+
+------------------------------------A--------------------------------
+
+-----1----
+
+declare @pid int,@pname varchar(250),@price decimal(10,2);
+declare Product_Cursor cursor for select * from Products
+open Product_Cursor;
+fetch next from Product_Cursor into @pid,@pname,@price;
+while @@FETCH_STATUS =0 begin 
+	print cast(@pid as varchar)+'||'+@pname+'||'+cast(@price as varchar)
+	fetch next from Product_Cursor into @pid,@pname,@price;
+end
+close Product_Cursor;
+deallocate Product_Cursor;
+
+-----2-----
+declare @pid int,@pname varchar(250);
+declare Product_Cursor_Fetch cursor for select Product_id,Product_Name from Products
+open Product_Cursor_Fetch;
+fetch next from Product_Cursor_Fetch into @pid,@pname;
+while @@FETCH_STATUS =0 begin 
+	print cast(@pid as varchar)+'_'+@pname
+	fetch next from Product_Cursor_Fetch into @pid,@pname;
+end
+close Product_Cursor_Fetch;
+deallocate Product_Cursor_Fetch;
+
+-----3-----
+
+declare @pid int;
+declare Product_CursorDelete cursor for select Product_id from Products
+open Product_CursorDelete;
+fetch next from Product_CursorDelete into @pid;
+while @@FETCH_STATUS =0 begin 
+	delete from Products where Product_id = @pid
+	fetch next from Product_CursorDelete into @pid;
+end
+close Product_CursorDelete;
+deallocate Product_CursorDelete;
+
+---------------------------B---------------------------------
+
+declare @pid int;
+declare Product_CursorUpdate cursor for select Product_id from Products
+open Product_CursorUpdate;
+fetch next from Product_CursorUpdate into @pid;
+while @@FETCH_STATUS =0 begin 
+	update Products set Price = Price*1.1 where Product_id = @pid	
+	fetch next from Product_CursorUpdate into @pid;
+end
+close Product_CursorUpdate;
+deallocate Product_CursorUpdate;
+
+--------------------------------C--------------------------
+
+-----1-----
+declare @pid int,@pname varchar(250),@price decimal(10,2);
+declare Product_to_NewProduct cursor for select * from Products
+open Product_to_NewProduct;
+fetch next from Product_to_NewProduct into @pid,@pname,@price;
+if not exists(select TABLE_NAME from INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'NewProducts') 
+begin
+	select * into NewProducts from Products where 1=2;
+end
+else
+begin
+	truncate table NewProducts
+end
+while @@FETCH_STATUS =0 begin 
+	insert into NewProducts values(@pid,@pname,@price);
+	fetch next from Product_to_NewProduct into @pid,@pname,@price;
+end
+close Product_to_NewProduct;
+deallocate Product_to_NewProduct;
+
+
